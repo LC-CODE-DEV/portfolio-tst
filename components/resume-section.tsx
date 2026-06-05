@@ -58,7 +58,7 @@ export function ResumeSection() {
             </div>
 
             <p className="text-xs text-muted-foreground mt-6">
-              Última atualização: Janeiro 2026
+              Última atualização: Junho 2026
             </p>
           </motion.div>
         </motion.div>
