@@ -4,19 +4,20 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import { HiExternalLink } from "react-icons/hi"
-import { 
-  FaClipboardCheck, 
-  FaExclamationTriangle, 
-  FaComments, 
-  FaMapMarkerAlt, 
-  FaTasks 
+import {
+  FaClipboardCheck,
+  FaExclamationTriangle,
+  FaComments,
+  FaMapMarkerAlt,
+  FaTasks
 } from "react-icons/fa"
 
 const projects = [
   {
     title: "Análise de Riscos de Escritório",
     description: "Identificação e avaliação de riscos ergonômicos, físicos e psicossociais em ambiente de escritório, com propostas de medidas preventivas.",
-    icon: FaExclamationTriangle,
+    image: "/projetos/capa.png",
+    pdf: "/projetos/analise-riscos-escritorio.pdf",
     tools: ["APR", "Checklist", "NR-17"],
     color: "from-blue-500/20 to-blue-600/10",
   },
@@ -83,18 +84,22 @@ export function ProjectsSection() {
                 className="group"
               >
                 <div className="bg-card rounded-2xl p-6 shadow-sm border border-border h-full hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                  <div className={`w-full h-32 rounded-xl bg-gradient-to-br ${project.color} flex items-center justify-center mb-6 group-hover:scale-[1.02] transition-transform`}>
-                    <project.icon className="w-12 h-12 text-primary" />
+                  <div className="w-full h-32 rounded-xl overflow-hidden mb-6">
+                    <img
+                      src="/projetos/capa.png"
+                      alt="Análise de Riscos de Escritório"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  
+
                   <h3 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  
+
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tools.map((tool) => (
                       <span
@@ -105,11 +110,16 @@ export function ProjectsSection() {
                       </span>
                     ))}
                   </div>
-                  
-                  <button className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline">
+
+                  <a
+                    href="/projetos/analise-riscos-escritorio.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
+                  >
                     Ver Projeto
                     <HiExternalLink className="w-4 h-4" />
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}

@@ -11,11 +11,6 @@ const socialLinks = [
     href: "https://www.linkedin.com/in/lucaslemostst/",
   },
   {
-    icon: FaGithub,
-    label: "GitHub",
-    href: "https://github.com/lucaslemos",
-  },
-  {
     icon: FaWhatsapp,
     label: "WhatsApp",
     href: "https://wa.me/5511989126085",

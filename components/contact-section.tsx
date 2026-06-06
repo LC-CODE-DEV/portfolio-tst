@@ -35,12 +35,6 @@ const socialLinks = [
     color: "hover:text-blue-600",
   },
   {
-    icon: FaGithub,
-    label: "GitHub",
-    href: "https://github.com/lucaslemos",
-    color: "hover:text-foreground",
-  },
-  {
     icon: FaWhatsapp,
     label: "WhatsApp",
     href: "https://wa.me/5511989126085",
@@ -65,19 +59,21 @@ export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setSubmitted(true)
-    setFormData({ name: "", email: "", message: "" })
-    
-    setTimeout(() => setSubmitted(false), 3000)
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault()
+
+  const texto = `Olá Lucas!
+
+Nome: ${formData.name}
+Email: ${formData.email}
+
+Mensagem:
+${formData.message}`
+
+  const url = `https://wa.me/5511989126085?text=${encodeURIComponent(texto)}`
+
+  window.open(url, "_blank")
+}
 
   return (
     <section id="contato" className="py-20 lg:py-32">
