@@ -58,11 +58,10 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-
   const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const texto = `Olá Lucas!
+    const texto = `Olá Lucas!
 
 Nome: ${formData.name}
 Email: ${formData.email}
@@ -70,10 +69,23 @@ Email: ${formData.email}
 Mensagem:
 ${formData.message}`
 
-  const url = `https://wa.me/5511989126085?text=${encodeURIComponent(texto)}`
+    const url = `https://wa.me/5511989126085?text=${encodeURIComponent(texto)}`
 
-  window.open(url, "_blank")
-}
+    window.open(url, "_blank")
+
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    })
+
+    setSubmitted(true)
+
+    setTimeout(() => {
+      setSubmitted(false)
+    }, 3000)
+
+  }
 
   return (
     <section id="contato" className="py-20 lg:py-32">
