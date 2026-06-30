@@ -80,19 +80,22 @@ const downloads = [
     icon: FaRegFilePdf,
     iconColor: "text-red-500",
     title: "Roteiro DDS – Uso Correto de EPIs",
-    meta: "PDF • 1.2 MB",
+    meta: "PDF",
+    file: "/downloads/roteiro-dds.pdf",
   },
   {
     icon: FaRegFilePowerpoint,
     iconColor: "text-orange-500",
     title: "Apresentação PowerPoint",
-    meta: "PPTX • 5.8 MB",
+    meta: "PPTX",
+    file: "/downloads/apresentacao-dds.pptx",
   },
   {
     icon: FaRegFileAlt,
     iconColor: "text-green-500",
     title: "Material Educativo (Folheto)",
-    meta: "PDF • 1.5 MB",
+    meta: "PDF",
+    file: "/downloads/folheto-dds.pdf",
   },
 ]
 
@@ -112,18 +115,7 @@ const usoCorretoItems = [
   "Comunique danos imediatamente.",
 ]
 
-const aplicacaoFotos = [
-  "/images/dds-aplicacao-1.png",
-  "/images/dds-aplicacao-2.png",
-  "/images/dds-aplicacao-3.png",
-]
 
-const slides = [
-  { id: 0, title: "O que são EPIs?" },
-  { id: 1, title: "Principais EPIs" },
-  { id: 2, title: "Uso Correto" },
-  { id: 3, title: "Mensagem Final" },
-]
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -163,19 +155,16 @@ export function DdsProjectPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="relative bg-card rounded-2xl border border-border overflow-hidden aspect-[3/4]"
+                className="rounded-2xl overflow-hidden flex items-center justify-center"
               >
-                
-
-                {/* Imagem dos EPIs */}
-                <div className="absolute right-0 top-1/4 w-3/5 h-1/2 opacity-90">
-                  <Image
-                    src="/images/dds-epi-photo.png"
-                    alt="Equipamentos de Proteção Individual: capacete, óculos, abafadores e luvas"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                <Image
+                  src="/imagens/dds-epi-photo.png"
+                  alt="DDS - Uso Correto de EPIs"
+                  width={700}
+                  height={980}
+                  className="rounded-xl"
+                  priority
+                />
               </motion.div>
 
               {/* Título + descrição */}
@@ -187,33 +176,31 @@ export function DdsProjectPage() {
                   Diálogo Diário de Segurança sobre a importância do uso correto dos
                   Equipamentos de Proteção Individual.
                 </p>
-                <div className="relative z-10 mt-auto">
-                    <div className="flex items-center gap-2 mb-3">
-                      <FaCheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-xs font-semibold text-foreground">
-                        SEGURANÇA NÃO É SORTE, É ATITUDE!
-                      </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground italic">
-                      Sua vida é o nosso maior valor.
-                    </p>
-                  </div>
-              </div>
-            </div>
+                <div className="mt-8 border-t border-border">
+                  {infoItems.map((item, index) => (
+                    <div
+                      key={item.title}
+                      className={`flex gap-4 py-5 ${index !== infoItems.length - 1 ? "border-b border-border" : ""
+                        }`}
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
 
-            {/* Cards de informação */}
-            <div className="space-y-6 border-t border-border pt-8">
-              {infoItems.map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-primary tracking-wide">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{item.text}</p>
-                  </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-primary tracking-wide">
+                          {item.title}
+                        </h3>
+
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {item.text}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+
+              </div>
             </div>
 
             {/* Sobre o Projeto */}
@@ -264,17 +251,28 @@ export function DdsProjectPage() {
               </p>
               <div className="space-y-3">
                 {downloads.map((d) => (
-                  <button
+                  <a
                     key={d.title}
+                    href={d.file}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full flex items-center gap-3 bg-secondary/50 hover:bg-secondary rounded-lg p-3 transition-colors text-left group"
                   >
                     <d.icon className={`w-7 h-7 ${d.iconColor} flex-shrink-0`} />
+
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-foreground truncate">{d.title}</p>
-                      <p className="text-[11px] text-muted-foreground">{d.meta}</p>
+                      <p className="text-xs font-semibold text-foreground truncate">
+                        {d.title}
+                      </p>
+
+                      <p className="text-[11px] text-muted-foreground">
+                        {d.meta}
+                      </p>
                     </div>
+
                     <HiDownload className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -287,95 +285,39 @@ export function DdsProjectPage() {
               </p>
 
               <div className="grid grid-cols-2 gap-3">
-                {/* Slide 1: O que são EPIs */}
-                <div className="bg-secondary/40 rounded-lg p-3 border border-border">
-                  <h4 className="text-[11px] font-bold text-foreground mb-2">O QUE SÃO EPIs?</h4>
-                  <p className="text-[9px] text-muted-foreground leading-snug mb-2">
-                    Equipamentos de Proteção Individual são dispositivos utilizados para proteger o
-                    trabalhador contra riscos que possam ameaçar sua segurança e saúde.
-                  </p>
-                  <FaShieldAlt className="w-5 h-5 text-primary" />
-                </div>
+                <Image
+                  src="/imagens/slide1.png"
+                  alt="Slide 1"
+                  width={400}
+                  height={250}
+                  className="rounded-lg border border-border hover:scale-105 transition-all duration-300 cursor-pointer"
+                />
 
-                {/* Slide 2: Principais EPIs */}
-                <div className="bg-secondary/40 rounded-lg p-3 border border-border">
-                  <h4 className="text-[11px] font-bold text-foreground mb-2">PRINCIPAIS EPIs</h4>
-                  <div className="grid grid-cols-3 gap-2">
-                    {epiList.map((epi) => (
-                      <div key={epi.label} className="flex flex-col items-center text-center">
-                        <epi.icon className="w-4 h-4 text-foreground mb-1" />
-                        <span className="text-[7px] text-muted-foreground leading-tight">
-                          {epi.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <Image
+                  src="/imagens/slide2.png"
+                  alt="Slide 2"
+                  width={400}
+                  height={250}
+                  className="rounded-lg border border-border hover:scale-105 transition-all duration-300 cursor-pointer"
+                />
 
-                {/* Slide 3: Uso Correto */}
-                <div className="bg-secondary/40 rounded-lg p-3 border border-border">
-                  <h4 className="text-[11px] font-bold text-primary mb-2">USO CORRETO</h4>
-                  <ul className="space-y-1">
-                    {usoCorretoItems.map((item) => (
-                      <li key={item} className="flex items-start gap-1">
-                        <span className="text-primary text-[9px] mt-0.5">•</span>
-                        <span className="text-[9px] text-muted-foreground leading-snug">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <Image
+                  src="/imagens/slide3.png"
+                  alt="Slide 3"
+                  width={400}
+                  height={250}
+                  className="rounded-lg border border-border hover:scale-105 transition-all duration-300 cursor-pointer"
+                />
 
-                {/* Slide 4: Mensagem Final */}
-                <div className="bg-secondary/40 rounded-lg p-3 border border-border flex flex-col">
-                  <h4 className="text-[11px] font-bold text-foreground mb-2">MENSAGEM FINAL</h4>
-                  <p className="text-[9px] text-muted-foreground leading-snug mb-2">
-                    O EPI não evita o risco, mas reduz drasticamente as consequências de um acidente.
-                  </p>
-                  <div className="flex items-center gap-1 mt-auto">
-                    <FaShieldAlt className="w-4 h-4 text-primary" />
-                    <span className="text-[9px] font-semibold text-foreground">
-                      Segurança é compromisso de todos!
-                    </span>
-                  </div>
-                </div>
+                <Image
+                  src="/imagens/slide4.png"
+                  alt="Slide 4"
+                  width={400}
+                  height={250}
+                  className="rounded-lg border border-border hover:scale-105 transition-all duration-300 cursor-pointer"
+                />
               </div>
 
-              {/* Indicadores */}
-              <div className="flex items-center justify-center gap-1.5 mt-4">
-                {slides.map((slide) => (
-                  <button
-                    key={slide.id}
-                    onClick={() => setActiveSlide(slide.id)}
-                    aria-label={`Ir para slide ${slide.title}`}
-                    className={`h-1.5 rounded-full transition-all ${
-                      activeSlide === slide.id ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/40"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Aplicação Real */}
-            <div className="bg-card rounded-2xl border border-border p-6">
-              <SectionLabel>Aplicação Real</SectionLabel>
-              <p className="text-xs text-muted-foreground mb-4">
-                Registro de aplicação do DDS com a equipe.
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                {aplicacaoFotos.map((foto, i) => (
-                  <div
-                    key={foto}
-                    className="relative aspect-square rounded-lg overflow-hidden border border-border"
-                  >
-                    <Image
-                      src={foto || "/placeholder.svg"}
-                      alt={`Aplicação real do DDS com a equipe ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
           </aside>
         </div>

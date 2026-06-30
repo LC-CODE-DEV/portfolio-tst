@@ -32,6 +32,7 @@ const projects = [
     href: "/projetos/dds-epi",
     tools: ["Apresentações", "Material Didático"],
     color: "from-orange-500/20 to-orange-600/10",
+    fit: "contain",
   },
 
   /*
@@ -104,11 +105,12 @@ export function ProjectsSection() {
                 <div className="bg-card rounded-2xl p-6 shadow-sm border border-border h-full hover:border-primary/50 transition-all duration-300 hover:shadow-md">
 
                   {/* Imagem do projeto */}
-                  <div className="w-full h-32 rounded-xl overflow-hidden mb-6">
+                  <div className="w-full h-32 rounded-xl overflow-hidden bg-white mb-6 flex items-center justify-center">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full ${project.fit === "contain" ? "object-contain p-2" : "object-cover"
+                        }`}
                     />
                   </div>
 
